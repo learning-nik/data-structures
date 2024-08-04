@@ -1,4 +1,4 @@
-package com.important.problems;
+package com.questions.heap;
 
 import java.util.ArrayList;
 import java.util.HashMap;

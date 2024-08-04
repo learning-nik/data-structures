@@ -7,48 +7,47 @@ import java.util.List;
 
 public class Rough {
 
-	public static void main(String[] args) {
+    public static void main(String[] args) {
 
-		List<int[]> mainlist = new ArrayList<>();
+        // split into batches
 
-		int[] a = { 10, 20 };
-		int[] b = { 1, 2 };
+        List<Integer> list = new ArrayList<>();
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        list.add(4);
+        list.add(5);
+        list.add(6);
 
-		mainlist.add(a);
-		mainlist.add(b);
+        splitIntoBatches(list, 10);
 
-		for (int[] element : mainlist) {
-			for (int i : element) {
-				System.out.print(i + ":");
-			}
-			System.out.println();
-		}
-		
-		Collections.sort(mainlist,(a1, a2) -> {
+    }
 
-			return (a1[0] * a1[0] + a1[1] * a1[1]) - (a2[0] * a2[0] + a2[1] * a2[1]);
+    private static void splitIntoBatches(List<Integer> list, int batchSize) {
 
-		});
+        int noOfBatches = list.size() / batchSize;
+        int extra = list.size() % batchSize;
 
-		Collections.sort(mainlist, new Comparator<int[]>() {
+        System.out.println(noOfBatches);
+        System.out.println(extra);
 
-			@Override
-			public int compare(int[] a1, int[] a2) {
+        List<List<Integer>> answer = new ArrayList<>();
+        List<Integer> batch;
 
-				return (a1[0] * a1[0] + a1[1] * a1[1]) - (a2[0] * a2[0] + a2[1] * a2[1]);
-			}
-		});
-		
-		for (int[] element : mainlist) {
-			for (int i : element) {
-				System.out.print(i + ":");
-			}
-			System.out.println();
-		}
-		
-		
+        int k = 0;
+        for (int i = 0; i < noOfBatches + extra; i++) {
+            batch = new ArrayList<>();
+            for (int j = 0; j < batchSize && k < list.size(); j++) {
+                batch.add(list.get(k++));
+            }
+            if (!batch.isEmpty()) {
+                answer.add(batch);
+            }
 
-		//Arrays.sort(points, (p1, p2) -> p1[0] * p1[0] + p1[1] * p1[1] - p2[0] * p2[0] - p2[1] * p2[1]);
-		
-	}
+        }
+
+        System.out.println(answer);
+
+
+    }
 }

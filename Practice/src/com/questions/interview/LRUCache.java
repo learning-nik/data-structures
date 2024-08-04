@@ -4,120 +4,117 @@ import java.util.HashMap;
 import java.util.Map;
 
 class LRUCache {
+    private final int capacity;
+    private final Map<Integer, Node> map;
+    private Node head;
+    private Node tail;
 
-	class Node {
-		private int key;
-		private int val;
-		private Node prev;
-		private Node next;
+    public LRUCache(int capacity) {
+        this.capacity = capacity;
+        map = new HashMap<>(capacity);
+    }
 
-		public Node(int key, int val, Node prev, Node next) {
-			this.key = key;
-			this.val = val;
-			this.prev = prev;
-			this.next = next;
-		}
+    public int get(int key) {
+        if (map.containsKey(key)) {
 
-	}
+            updateNodeAndAddToTail(map.get(key));
+            return map.get(key).val;
 
-	private int capacity;
-	private Map<Integer, Node> map;
-	private Node head;
-	private Node tail;
+        }
+        return -1;
+    }
 
-	public LRUCache(int capacity) {
-		this.capacity = capacity;
-		map = new HashMap<>(capacity);
-	}
+    public void put(int key, int value) {
 
-	public int get(int key) {
-		if (map.containsKey(key)) {
+        if (map.containsKey(key)) {
 
-			updateNodeAndAddToTail(map.get(key));
-			return map.get(key).val;
+            Node lastNode = map.get(key);
+            lastNode.val = value;
+            updateNodeAndAddToTail(lastNode);
+            map.put(key, lastNode);
 
-		}
-		return -1;
-	}
+        } else {
+            // If capacity is available , just add the element to end to list and to the map.
+            if (map.size() < capacity) {
+                Node node = new Node(key, value, null, null);
+                addNodeAtTail(node);
+                map.put(key, node);
+            } else {
 
-	public void put(int key, int value) {
+                // If capacity is not available ,
+                // Remove the element from the head of LL and from map.
+                // Add the element to end to list and to the map.
+                Node node = new Node(key, value, null, null);
+                Node lastHead = removeNodeFromHead();
+                map.remove(lastHead.key);
+                addNodeAtTail(node);
+                map.put(key, node);
 
-		if (map.containsKey(key)) {
+            }
+        }
+    }
 
-			Node lastNode = map.get(key);
-			lastNode.val = value;
-			updateNodeAndAddToTail(lastNode);
-			map.put(key, lastNode);
+    private void updateNodeAndAddToTail(Node node) {
 
-		}
+        if (node.val != tail.val) {
 
-		else {
-			// If capacity is available , just add the element to end to list and to the map.
-			if (map.size() < capacity) {
-				Node node = new Node(key, value, null, null);
-				addNodeAtTail(node);
-				map.put(key, node);
-			} else {
+            Node tempPrev = node.prev;
+            Node tempNext = node.next;
 
-				// If capacity is not available ,
-				// Remove the element from the head of LL and from map.
-				// Add the element to end to list and to the map.
-				Node node = new Node(key, value, null, null);
-				Node lastHead = removeNodeFromHead();
-				map.remove(lastHead.key);
-				addNodeAtTail(node);
-				map.put(key, node);
+            if (head.val == node.val) {
+                head = tempNext;
+            }
 
-			}
-		}
-	}
+            if (tempPrev != null) {
+                tempPrev.next = tempNext;
+            }
 
-	private void updateNodeAndAddToTail(Node node) {
+            if (tempNext != null) {
+                tempNext.prev = tempPrev;
+            }
 
-		if (node.val != tail.val) {
+            addNodeAtTail(node);
+        }
 
-			Node tempPrev = node.prev;
-			Node tempNext = node.next;
+    }
 
-			if (head.val == node.val) {
-				head = tempNext;
-			}
+    private void addNodeAtTail(Node node) {
 
-			if (tempPrev != null) {
-				tempPrev.next = tempNext;
-			}
+        if (head == null) {
+            head = node;
+            tail = node;
+        } else {
+            tail.next = node;
+            node.prev = tail;
+            tail = tail.next;
+            tail.next = null;
+        }
 
-			if (tempNext != null) {
-				tempNext.prev = tempPrev;
-			}
+    }
 
-			addNodeAtTail(node);
-		}
+    private Node removeNodeFromHead() {
 
-	}
+        Node lastHead = head;
+        lastHead.prev = null;
+        head = head.next;
 
-	private void addNodeAtTail(Node node) {
+        return lastHead;
 
-		if (head == null) {
-			head = node;
-			tail = node;
-		} else {
-			tail.next = node;
-			node.prev = tail;
-			tail = tail.next;
-			tail.next=null;
-		}
+    }
 
-	}
+    class Node {
 
-	private Node removeNodeFromHead() {
+        private final int key;
+        private int val;
+        private Node prev;
+        private Node next;
 
-		Node lastHead = head;
-		lastHead.prev = null;
-		head = head.next;
-		
+        public Node(int key, int val, Node prev, Node next) {
+            this.key = key;
+            this.val = val;
+            this.prev = prev;
+            this.next = next;
+        }
 
-		return lastHead;
-
-	}
+    }
 }

@@ -1,4 +1,4 @@
-package com.important.problems;
+package com.questions.heap;
 
 import java.util.PriorityQueue;
 
@@ -73,7 +73,7 @@ public class ClosestPointToOrigin {
 			return (a1[0] * a1[0] + a1[1] * a1[1]) - (a2[0] * a2[0] + a2[1] * a2[1]);
 		});
 
-		int ans[][] = new int[k][2];
+		int[][] ans = new int[k][2];
 
 		for (int i = 0; i < points.length; i++) {
 			queue.add(points[i]);

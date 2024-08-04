@@ -1,34 +1,37 @@
 package com.questions.matrix;
 
+// Each row is sorted and each column is sorted
+//https://leetcode.com/problems/search-a-2d-matrix-ii/
 public class SearchInRowAndColumnSortedMatrix {
 
 	public static void main(String[] args) {
-		
-		int a[][] = {{1,5,9},{2,6,10},{3,7,11}};
+
+		int a[][] = { { 1, 5, 9 }, { 2, 6, 10 }, { 3, 7, 11 } };
 		print(a);
-		System.out.println(search(a,1));
+		System.out.println(searchMatrix(a, 33));
 	}
-	
-	private static String search(int[][] a, int element) {
-		
-		
-		//int topRight = a[0][a[0].length-1];
-		int i=0; 
-		int j=a[0].length-1;
-		
-		while(i<a.length && j >=0) {
-			if(element == a[i][j]) {
-				return "TRUE";
-			}
-			else if(element > a[i][j]) {
-				i++;
-			}
-			else {
-				j--;
+
+	public static boolean searchMatrix(int[][] a, int target) {
+
+		int row = 0;
+		int col = a[0].length - 1;
+
+		boolean isPresent = false;
+
+		// initial pointer is at first row and last column
+
+		while (row < a.length && col >= 0) {
+
+			if (a[row][col] == target) {
+				return true;
+			} else if (target < a[row][col]) {
+				col--;
+			} else {
+				row++;
 			}
 		}
-		
-		return "FALSE";
+
+		return isPresent;
 	}
 
 	private static void print(int[][] a) {
@@ -39,8 +42,5 @@ public class SearchInRowAndColumnSortedMatrix {
 			System.out.println();
 		}
 	}
-	
-	
+
 }
-
-

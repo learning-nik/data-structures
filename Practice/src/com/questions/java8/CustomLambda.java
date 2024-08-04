@@ -3,6 +3,7 @@ package com.questions.java8;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class CustomLambda {
@@ -27,6 +28,8 @@ public class CustomLambda {
 		Filter filter3 = (int i) -> {
 			return i % 2 == 0;
 		};
+
+
 
 		DoubleFilter doubleFilter = (x, y) -> (x + y) / 2 == 0;
 

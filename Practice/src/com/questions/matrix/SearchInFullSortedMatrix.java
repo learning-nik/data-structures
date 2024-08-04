@@ -1,10 +1,13 @@
 package com.questions.matrix;
 
+// https://leetcode.com/problems/search-a-2d-matrix/description/
 public class SearchInFullSortedMatrix {
 
 	public static void main(String[] args) {
 
-		int a[][] = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
+		int a[][] = { { 1, 2, 3 }, 
+					  { 4, 5, 6 }, 
+					  { 7, 8, 9 } };
 		print(a);
 		search(a, 8);
 	}

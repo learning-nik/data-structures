@@ -10,7 +10,7 @@ public class JobScheduling {
 
 	public static void main(String[] args) {
 
-		List<Job> list = new ArrayList<Job>();
+		List<Job> list = new ArrayList<>();
 		list.add(new Job(1, 2, 100));
 		list.add(new Job(2, 1, 19));
 		list.add(new Job(3, 2, 27));

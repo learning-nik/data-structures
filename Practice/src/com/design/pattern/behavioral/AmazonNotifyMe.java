@@ -22,7 +22,7 @@ public class AmazonNotifyMe {
 		listOfListeners.forEach(listener -> observer.addListeners("product1", listener));
 
 		// product is available
-		//get all the listeners from the products
+		// get all the listeners from the products
 		observer.onChange("product2");
 
 	}
@@ -32,17 +32,17 @@ public class AmazonNotifyMe {
 		List<Listener> list = new ArrayList<>();
 
 		if (NOTIFICATION_TYPE.SMS.equals(type)) {
-			// get userDetails from DB and get the mobileNumber 
+			// get userDetails from DB and get the mobileNumber
 			list.add(new SMSListener("1234567890"));
 		}
 
 		if (NOTIFICATION_TYPE.SMS.equals(type)) {
-			// get userDetails from DB and get the emailAddress 
+			// get userDetails from DB and get the emailAddress
 			list.add(new EmailListener("nikhil09ec060@gmail.com"));
 		}
 
 		if (NOTIFICATION_TYPE.ALL.equals(type)) {
-			// get userDetails from DB and get the emailAddress 
+			// get userDetails from DB and get the emailAddress
 			list.add(new EmailListener("nikhil09ec060@gmail.com"));
 			list.add(new SMSListener("1234567890"));
 
